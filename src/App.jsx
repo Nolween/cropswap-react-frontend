@@ -1,13 +1,15 @@
-import { useState } from 'react'
 import './App.css'
+import {createBrowserRouter, RouterProvider} from "react-router-dom";
+import {Home} from "./pages/Home.jsx";
+import {BlogIndex} from "./pages/Blog/BlogIndex.jsx";
+
+const router = createBrowserRouter([
+    { path: '/', element: <Home /> },
+    { path: '/blog', element: <BlogIndex /> },
+])
 
 function App() {
-
-  return (
-    <div className="text-3xl text-blue-600">
-        CropSwap React Frontend
-    </div>
-  )
+  return <RouterProvider router={router} />
 }
 
 export default App
