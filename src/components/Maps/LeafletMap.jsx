@@ -1,9 +1,14 @@
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import PropTypes from "prop-types";
-import {useNavigate} from "react-router-dom";
 import {useEffect} from "react";
 
+// PROPS TYPES
+LeafletMap.propTypes = {
+    zoomLevel: PropTypes.number,
+    center: PropTypes.array,
+    markers: PropTypes.array
+}
 
 export function LeafletMap({
                                zoomLevel = 6,
@@ -13,9 +18,9 @@ export function LeafletMap({
     // Map Declaration
     let map;
 
-    const navigate = useNavigate();
     // Functions
     const goToCrop = (id) => {
+        console.log(id)
         // navigate(`/crop/${id}`);
     };
 

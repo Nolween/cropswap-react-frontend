@@ -1,6 +1,12 @@
-import {useState, useEffect} from 'react';
-import PropTypes from 'prop-types';
 import * as Icons from '@mui/icons-material';
+import PropTypes from 'prop-types';
+
+
+SimpleCard.propTypes = {
+    iconComponent: PropTypes.string,
+    description: PropTypes.string,
+    title: PropTypes.string
+};
 
 export function SimpleCard({
                                iconComponent = "Add",
