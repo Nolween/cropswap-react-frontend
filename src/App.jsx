@@ -6,6 +6,7 @@ import {BlogIndex} from "./pages/Blog/BlogIndex.jsx";
 const router = createBrowserRouter([
     { path: '/', element: <Home /> },
     { path: '/blog', element: <BlogIndex /> },
+    { path: '/blog/:tag', element: <BlogIndex /> },
 ])
 
 function App() {
