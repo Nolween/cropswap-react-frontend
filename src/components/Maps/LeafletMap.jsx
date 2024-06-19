@@ -1,7 +1,7 @@
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import PropTypes from "prop-types";
-import {useEffect} from "react";
+import {useEffect, useRef} from "react";
 
 // PROPS TYPES
 LeafletMap.propTypes = {
@@ -16,7 +16,7 @@ export function LeafletMap({
                                markers = []
                            }) {
     // Map Declaration
-    let map;
+    let mapRef = useRef(null);
 
     // Functions
     const goToCrop = (id) => {
@@ -35,15 +35,14 @@ export function LeafletMap({
         let center2 = center;
 
         // Destroy map container
-        if (map) {
+        if (mapRef.current) {
             //  keep the zoom level and center
-            center2 = map.getCenter();
-            zoomLevel2 = map.getZoom();
-            map.remove();
+            center2 = mapRef.current.getCenter();
+            zoomLevel2 = mapRef.current.getZoom();
+            mapRef.current.remove();
         }
 
-
-        map = L.map('mapid', {scrollWheelZoom: false}).setView(center2, zoomLevel2);
+        mapRef.current = L.map('mapid', {scrollWheelZoom: false}).setView(center2, zoomLevel2);
 
         let LeafIcon = L.Icon.extend({
             options: {
@@ -72,11 +71,11 @@ export function LeafletMap({
                 default:
                     oneIcon = new LeafIcon({iconUrl: '/images/icons/leaf-green.png'});
             }
-            let mark = L.marker(marker.position, {icon: oneIcon}).addTo(map);
+            let mark = L.marker(marker.position, {icon: oneIcon}).addTo(mapRef.current);
             // Add Name of crop and its description
             mark.bindPopup(`<b>${marker.name}</b>
         <br>${marker.description}
-        <br><p id="crop-${marker.id}" className="cursor-pointer""><b>Voir le crop</b></p>`);
+        <br><p id="crop-${marker.id}" class="cursor-pointer""><b>Voir le crop</b></p>`);
 
 
             mark.on('popupopen', () => {
@@ -88,21 +87,21 @@ export function LeafletMap({
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
-        }).addTo(map);
+        }).addTo(mapRef.current);
 
 
         // Listen for 'keyup' event on the document.
         document.addEventListener('keydown', function (event) {
             if (event.key === "Control") {
                 // If the 'Control' key is released, disable scroll wheel zoom.
-                map.scrollWheelZoom.enable();
+                mapRef.current.scrollWheelZoom.enable();
             }
         });
         // Listen for 'keyup' event on the document.
         document.addEventListener('keyup', function (event) {
             if (event.key === "Control") {
                 // If the 'Control' key is released, disable scroll wheel zoom.
-                map.scrollWheelZoom.disable();
+                mapRef.current.scrollWheelZoom.disable();
             }
         });
     };
@@ -110,7 +109,7 @@ export function LeafletMap({
 
     useEffect(() => {
         renderMap(zoomLevel, center, markers);
-    }, []);
+    }, [zoomLevel, center, markers]);
 
     return (
         <div id="mapid" className="w-full h-full z-30"></div>
