@@ -26,7 +26,7 @@ export function LeafletMap({
 
     const renderMap = (zoomLevel, center, markers) => {
 
-        if (!document.getElementById('mapid')) {
+        if (!document.getElementById('mapid') || !center || center.length !== 2) {
             // If the element does not exist, return early to avoid creating the map.
             return;
         }
@@ -41,6 +41,7 @@ export function LeafletMap({
             zoomLevel2 = mapRef.current.getZoom();
             mapRef.current.remove();
         }
+
 
         mapRef.current = L.map('mapid', {scrollWheelZoom: false}).setView(center2, zoomLevel2);
 
