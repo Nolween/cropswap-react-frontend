@@ -5,6 +5,8 @@ import {BlogIndex} from "./pages/Blog/BlogIndex.jsx";
 import {BlogShow} from "./pages/Blog/BlogShow.jsx";
 import {CropIndex} from "./pages/Crop/CropIndex.jsx";
 import {CropShow} from "./pages/Crop/CropShow.jsx";
+import {AccountInformations} from "./pages/Account/AccountInformations.jsx";
+import {Test} from "./pages/Test/Test.jsx";
 
 const router = createBrowserRouter([
     {path: '/', element: <Home/>},
@@ -13,6 +15,8 @@ const router = createBrowserRouter([
     {path: '/blog/article/:articleid', element: <BlogShow/>},
     {path: '/crop', element: <CropIndex/>},
     {path: '/crop/:id', element: <CropShow/>},
+    {path: '/account/informations', element: <AccountInformations/>},
+    {path: '/test', element: <Test/>},
 ])
 
 function App() {
