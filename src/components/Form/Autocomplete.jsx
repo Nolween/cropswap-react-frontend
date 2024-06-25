@@ -6,10 +6,10 @@ Autocomplete.propTypes = {
     values: PropTypes.array,
     selectedValues: PropTypes.array,
     isMultiple: PropTypes.bool,
-    onUpdatedSelectedValues: PropTypes.func,
+    onUpdateSelectedValues: PropTypes.func,
 }
 
-export function Autocomplete({placeholder = '',  values, selectedValues, onUpdatedSelectedValues, isMultiple = false}) {
+export function Autocomplete({placeholder = '',  values, selectedValues, onUpdateSelectedValues, isMultiple = false}) {
 
     const [isOpenedList, setIsOpenedList] = useState(false)
     const [search, setSearch] = useState('')
@@ -44,7 +44,7 @@ export function Autocomplete({placeholder = '',  values, selectedValues, onUpdat
     }, []);
 
     const handleUpdateSelectedValues = (values) => {
-        onUpdatedSelectedValues(values);
+        onUpdateSelectedValues(values);
     }
 
     const handleSelectValue = (value) => {
@@ -78,7 +78,7 @@ export function Autocomplete({placeholder = '',  values, selectedValues, onUpdat
             ) : null}
             {isOpenedList ? (
                 <div ref={autocompleteList}
-                    className="autocomplete-list h-40 overflow-auto z-60 absolute t-6 w-full bg-white border-2 border-gray-200 rounded-lg">
+                    className="autocomplete-list max-h-40 overflow-auto z-60 absolute t-6 w-full bg-white border-2 border-gray-200 rounded-lg">
                     {filteredValues.map(value => (
                         <div
                             key={value.id}

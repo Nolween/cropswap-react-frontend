@@ -15,6 +15,10 @@ export function NavigationMenu({isAuthenticated }) {
         setOpenedAccountActions(!openedAccountActions)
     }
 
+    const logout = () => {
+        console.log('logout')
+    }
+
 
     return (
             <div
@@ -57,7 +61,7 @@ export function NavigationMenu({isAuthenticated }) {
                                 </div>
                                 <div><Link to="/account/crop" className="hover:text-lime-500">MON CROP</Link>
                                 </div>
-                                <div onClick="logout"
+                                <div onClick={logout}
                                      className="hover:text-lime-500"> DECONNECTER
                                 </div>
                             </div>

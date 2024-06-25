@@ -3,7 +3,7 @@ import {useState, useRef, useEffect} from "react";
 
 SimpleSwap.propTypes = {
     swap: PropTypes.object,
-    actions: PropTypes.array,
+    actions: PropTypes.object,
     onActionEmitted: PropTypes.func
 };
 
@@ -14,20 +14,25 @@ export function SimpleSwap({swap, actions, onActionEmitted}) {
     const [contextMenuX, setContextMenuX] = useState(0);
     const [contextMenuY, setContextMenuY] = useState(0);
     const swapCard = useRef(null);
+    const swapContextMenu = useRef(null);
 
 
     const openContext = (event) => {
-        if (actions && swapCard.current === event.target) {
-            const rect = swapCard.value.getBoundingClientRect();
-            setContextMenuX(event.pageX - rect.left);
-            setContextMenuY(event.pageY - rect.top);
-            setOpenedContext(true);
+        if (actions && swapCard.current) {
+            // If we are not directly clicking on the opened context menu, open it
+            if (!swapContextMenu.current || !swapContextMenu.current.contains(event.target)) {
+                const rect = swapCard.current.getBoundingClientRect();
+                setContextMenuX(event.pageX - rect.left);
+                setContextMenuY(event.pageY - rect.top);
+                setOpenedContext(true);
+            }
         }
     }
 
 
     const emitAction = (actionIndex) => () => {
         onActionEmitted(actionIndex);
+        setOpenedContext(false);
     }
 
     useEffect(() => {
@@ -40,7 +45,7 @@ export function SimpleSwap({swap, actions, onActionEmitted}) {
 
     const outsideClickListener = (event) => {
         const {current} = swapCard;
-        if (current && !current.contains(event.target) ) {
+        if (current && !current.contains(event.target)) {
             setOpenedContext(false)
         }
     };
@@ -55,13 +60,14 @@ export function SimpleSwap({swap, actions, onActionEmitted}) {
                  className="w-16 min-h-16 md:w-28 md:min-h-28 xl:w-40 xl:min-h-40  md:p-4 mx-auto"/>
             {openedContext ? (
                 <div
+                    ref={swapContextMenu}
                     className="z-40 w-40 lg:w-80 absolute border-2 border-gray-300 bg-white rounded-md lg:p-2 text-gray-800"
                     style={{top: `${contextMenuY}px`, left: `${contextMenuX}px`}}>
-                    {actions.map((action, actionIndex) => (
-                        <div key={actionIndex}>
+                    {Object.entries(actions).map(([actionIndex, actionValue], index) => (
+                        <div key={index}>
                             <button onClick={emitAction(actionIndex)}
                                     className="action-swap lg:p-2 align-middle w-full rounded-md text-gray-800 hover:bg-gray-200 hover:text-gray-900 text-sm">
-                                {action}
+                                {actionValue}
                             </button>
                         </div>
                     ))}

@@ -131,7 +131,7 @@ export function CropIndex() {
                                           placeholder={'Sélectionner des swaps'}
                                           selectedValues={selectedSwaps}
                                           isMultiple={true}
-                                          onUpdatedSelectedValues={(swap) => updateSelectedSwaps(swap, true)}/>
+                                          onUpdateSelectedValues={(swap) => updateSelectedSwaps(swap, true)}/>
                         </div>
 
                         {selectedSwaps.length !== 0 ? (
