@@ -9,6 +9,7 @@ import {AccountInformations} from "./pages/Account/AccountInformations.jsx";
 import {Test} from "./pages/Test/Test.jsx";
 import {AccountCrop} from "./pages/Account/AccountCrop.jsx";
 import {AccountMessages} from "./pages/Account/AccountMessages.jsx";
+import {Dashboard} from "./pages/Admin/Dashboard.jsx";
 
 const router = createBrowserRouter([
     {path: '/', element: <Home/>},
@@ -20,6 +21,7 @@ const router = createBrowserRouter([
     {path: '/account/informations', element: <AccountInformations/>},
     {path: '/account/crop', element: <AccountCrop/>},
     {path: '/messages', element: <AccountMessages/>},
+    {path: '/admin', element: <Dashboard/>},
     {path: '/test', element: <Test/>},
 ])
 
