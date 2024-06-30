@@ -10,6 +10,7 @@ import {Test} from "./pages/Test/Test.jsx";
 import {AccountCrop} from "./pages/Account/AccountCrop.jsx";
 import {AccountMessages} from "./pages/Account/AccountMessages.jsx";
 import {Dashboard} from "./pages/Admin/Dashboard.jsx";
+import {AdminCropIndex} from "./pages/Admin/Crop/AdminCropIndex.jsx";
 
 const router = createBrowserRouter([
     {path: '/', element: <Home/>},
@@ -21,7 +22,8 @@ const router = createBrowserRouter([
     {path: '/account/informations', element: <AccountInformations/>},
     {path: '/account/crop', element: <AccountCrop/>},
     {path: '/messages', element: <AccountMessages/>},
-    {path: '/admin', element: <Dashboard/>},
+    {path: '/admin/dashboard', element: <Dashboard/>},
+    {path: '/admin/crop/index', element: <AdminCropIndex/>},
     {path: '/test', element: <Test/>},
 ])
 
